@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, push, onValue, remove } from "firebase/database";
 
@@ -25,7 +25,9 @@ function App() {
   const [messages, setMessages] = useState();
   const [value, setValue] = useState();
 
-
+  useEffect(()=>{
+    getData();
+  },[])
 
 
   const getData = () => {
@@ -35,6 +37,7 @@ function App() {
       setMessages(data);
     });
   };
+
 
 
   const createUserMessage = () => {
@@ -58,13 +61,20 @@ function App() {
       <button onClick={createUserMessage}>createUserMessage</button>
       <input onChange={(e)=>{setValue(e.target.value)}}/>
     </div>
-      <div>messages: {
-        Object.entries(messages[userId]).map(e => {
-          return <p>{JSON.stringify(e[1])} <button onClick={()=> {removeMessage(e[0])}}>delete</button></p>
-        })
+      {messages &&
+          <div>messages: {
+            Object.entries(messages[userId]).map(e => {
+              return <p>{JSON.stringify(e[1])}
+                <button onClick={() => {
+                  removeMessage(e[0])
+                }}>delete
+                </button>
+              </p>
+            })
 
 
-      }</div>
+          }</div>
+      }
     </div>
   );
 }
