@@ -40,7 +40,7 @@ function App() {
 
 
 
-  const createUserMessage = () => {
+  const createNotification = () => {
     const db = getDatabase();
     push(ref(db, `notifications/${userId}/`), {
       id: Date.now(),
@@ -57,8 +57,7 @@ function App() {
   return (
     <div className="App">
     <div>
-      <button onClick={getData}>getData</button>
-      <button onClick={createUserMessage}>createUserMessage</button>
+      <button onClick={createNotification}>createNotification</button>
       <input onChange={(e)=>{setValue(e.target.value)}}/>
     </div>
       {messages &&
