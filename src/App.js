@@ -56,14 +56,24 @@ function App() {
 
   return (
     <div className="App">
+      <h3>Firebase Realtime Database (fbrtdb) Demo</h3>
+      <p>
+        This demo shows a react web application connecting to a fbrtdb and getting data updates in real time.
+        <br/>All the "Notifications" shown below are coming from a <a href={"https://firebase.google.com/docs/database"}>fbrtdb</a>.
+        <br/>The page starts an <a href={"https://firebase.google.com/docs/reference/js/database?authuser=0#onvalue_3"}>onValue</a> listener that connects to a reference node in the db and responds to any changes below that node.
+        <br/>Put some text in the input box and click "createNotification" to add a new "notification".
+        <br/>Use "delete" to delete one.
+        <br/>View the source here: <a href={"https://github.com/timomeara/rtdb-demo"}>https://github.com/timomeara/rtdb-demo</a>
+      </p>
     <div>
-      <button onClick={createNotification}>createNotification</button>
+      <button onClick={createNotification} disabled={!value}>createNotification</button>
       <input onChange={(e)=>{setValue(e.target.value)}}/>
     </div>
+      <div>
       {messages &&
-          <div>messages: {
+          <div><h4>notifications:</h4> {
             Object.entries(messages[userId]).map(e => {
-              return <p>{JSON.stringify(e[1])}
+              return <p>{JSON.stringify(e[1])} --
                 <button onClick={() => {
                   removeMessage(e[0])
                 }}>delete
@@ -74,6 +84,7 @@ function App() {
 
           }</div>
       }
+      </div>
     </div>
   );
 }
